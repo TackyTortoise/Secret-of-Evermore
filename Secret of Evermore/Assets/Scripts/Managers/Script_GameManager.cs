@@ -26,9 +26,17 @@ public class Script_GameManager : MonoBehaviour
 
     public void CreateCharacter(Script_Character c)
     {
-        GameObject player = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+        /*GameObject player = GameObject.CreatePrimitive(PrimitiveType.Capsule);
         player.AddComponent<Script_CharacterBehaviour>();
         var vc = player.AddComponent<Script_VisualCharacter>();
-        vc.SetCharacter(c);
+        vc.SetCharacter(c);*/
+    }
+
+    void Update()
+    {
+        if (Input.GetKey(KeyCode.Space))
+        {
+            _characterManager.SwitchCharacter();
+        }
     }
 }

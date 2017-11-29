@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Script_VisualCharacter : MonoBehaviour
 {
-    private Script_Character _character;
-
     // Use this for initialization
     void Start()
     {
@@ -16,10 +14,5 @@ public class Script_VisualCharacter : MonoBehaviour
     void Update()
     {
 
-    }
-
-    public void SetCharacter(Script_Character ch)
-    {
-        _character = ch;
     }
 }

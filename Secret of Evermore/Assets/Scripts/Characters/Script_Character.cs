@@ -3,16 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Script_Character
+public abstract class Script_Character
 {
-    private String _characterName;
-    private int _health = 100;
-    private int _attack = 10;
-    private int _defense = 10;
+    protected String _characterName;
+    protected int _health = 100;
+    protected int _attack = 10;
+    protected int _defense = 10;
+    protected Script_VisualCharacter _visualCharacter;
+    protected Script_Weapon _weapon;
 
-    public Script_Character(String name)
+    public Script_VisualCharacter GetVisualCharacter()
     {
-        _characterName = name;
-        Script_GameManager.GetInstance().CreateCharacter(this);
+        return _visualCharacter;
     }
+
+    public Script_Weapon GetWeapon()
+    {
+        return _weapon;
+}
 }
