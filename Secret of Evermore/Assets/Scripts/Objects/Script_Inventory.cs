@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditorInternal;
 using UnityEngine;
 
 public class Script_Inventory
@@ -36,5 +37,15 @@ public class Script_Inventory
             if (inventoryItem.Amount <= 0)
                 _itemList.Remove(inventoryItem);
         }
+    }
+
+    public int GetTotalAttackBoost()
+    {
+        return _itemList.Sum(x => x.AttackBoost);
+    }
+
+    public int GetTotalDefenseBoost()
+    {
+        return _itemList.Sum(x => x.DefenseBoost);
     }
 }

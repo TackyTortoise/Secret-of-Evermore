@@ -5,21 +5,20 @@ using UnityEngine;
 
 public abstract class Script_Character
 {
-    protected String _characterName;
-    protected int _health = 0;
-    public int CurrentHealth { get { return _health; } }
-    private const int _maxHealth = 100;
-    public int MaxHealth { get { return _maxHealth; } }
-    protected int _attack = 10;
-    public int Attack { get { return _attack; } }
-    protected int _defense = 10;
+    public String Name { get; protected set; }
+    public int CurrentHealth { get; protected set; }
+    public int MaxHealth { get; private set; }
+    public int Attack { get; protected set; }
+    public int Defense { get; protected set; }
     protected Script_VisualCharacter _visualCharacter;
-    protected Script_Weapon _weapon;
-    public Script_Weapon Weapon { get { return _weapon; } }
+    public Script_Weapon Weapon { get; protected set; }
 
     public Script_Character()
     {
-        _health = _maxHealth;
+        Defense = 0;
+        Attack = 10;
+        MaxHealth = 100;
+        CurrentHealth = MaxHealth;
     }
 
     public Script_VisualCharacter GetVisualCharacter()
@@ -29,9 +28,7 @@ public abstract class Script_Character
 
     public void TakeDamage(int number)
     {
-        Debug.Log(_characterName + " taking " + number + " damage");
-        _health -= number;
-        //if (_health <= 0)
-        //    GameObject.Destroy(_visualCharacter.gameObject);
+        Debug.Log(Name + " taking " + number + " damage");
+        CurrentHealth -= Math.Max(0, Defense - number);
     }
 }

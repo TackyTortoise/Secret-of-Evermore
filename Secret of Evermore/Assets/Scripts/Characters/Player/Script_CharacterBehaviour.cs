@@ -28,6 +28,12 @@ public class Script_CharacterBehaviour : Script_VisualCharacter
         if (_currentlyActive)
         {
             Movement();
+            if (_currentChargeTimer < _totalChargeTime)
+            {
+                _currentChargeTimer += Time.deltaTime;
+                if (_currentChargeTimer > _totalChargeTime)
+                    _currentChargeTimer = _totalChargeTime;
+            }
             Attack();
         }
         else
@@ -62,12 +68,7 @@ public class Script_CharacterBehaviour : Script_VisualCharacter
             _currentChargeTimer = 0f;
         }
 
-        if (_currentChargeTimer < _totalChargeTime)
-        {
-            _currentChargeTimer += Time.deltaTime;
-            if (_currentChargeTimer > _totalChargeTime)
-                _currentChargeTimer = _totalChargeTime;
-        }
+
     }
 
     void Movement()
@@ -104,7 +105,7 @@ public class Script_CharacterBehaviour : Script_VisualCharacter
     {
         if (_attachedCharacter.Weapon == null)
             return _attachedCharacter.Attack;
-        return (int)(_attachedCharacter.Weapon.GetPower() * GetCurrentChargePercentage() + _attachedCharacter.Attack);
+        return (int)(_attachedCharacter.Weapon.AttackBoost * GetCurrentChargePercentage() + _attachedCharacter.Attack);
     }
 
     public void SetActiveCharacter(bool active)

@@ -8,7 +8,8 @@ public class Script_Sword : Script_Weapon
     public Script_Sword()
     {
         Type = ItemType.Sword;
-        _power = 20;
+        Name = "Sword";
+        AttackBoost = 20;
         _range = 2f;
     }
 

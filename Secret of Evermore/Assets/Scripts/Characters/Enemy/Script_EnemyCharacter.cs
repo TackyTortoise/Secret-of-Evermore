@@ -7,7 +7,7 @@ public class Script_EnemyCharacter : Script_Character
 {
     public Script_EnemyCharacter()
     {
-        _characterName = "Enemy";
+        Name = "Enemy";
         var visCharPrefab = Resources.Load<Script_VisualCharacter>("Prefabs/BasicEnemy");
         _visualCharacter = GameObject.Instantiate(visCharPrefab);
         _visualCharacter.SetCharacter(this);

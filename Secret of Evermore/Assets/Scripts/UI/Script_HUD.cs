@@ -14,6 +14,7 @@ public class Script_HUD : MonoBehaviour
     }
 
     private PlayerUI _playerUI1;
+    private PlayerUI _playerUI2;
 
     // Use this for initialization
     void Start()
@@ -25,12 +26,20 @@ public class Script_HUD : MonoBehaviour
             ChargeText = uip1.transform.GetChild(2).GetComponent<Text>(),
             TrackCharacter = Script_GameManager.GetInstance().CharacterManager.GetCharacters()[0].GetVisualCharacter()
         };
+        var uip2 = transform.GetChild(1);
+        _playerUI2 = new PlayerUI
+        {
+            HealthText = uip2.transform.GetChild(0).GetComponent<Text>(),
+            ChargeText = uip2.transform.GetChild(2).GetComponent<Text>(),
+            TrackCharacter = Script_GameManager.GetInstance().CharacterManager.GetCharacters()[1].GetVisualCharacter()
+        };
     }
 
     // Update is called once per frame
     void Update()
     {
         UpdatePlayerUI(_playerUI1);
+        UpdatePlayerUI(_playerUI2);
     }
 
     void UpdatePlayerUI(PlayerUI ui)

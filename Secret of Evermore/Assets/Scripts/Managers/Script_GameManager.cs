@@ -6,11 +6,10 @@ using UnityEngine;
 public class Script_GameManager : MonoBehaviour
 {
     private static Script_GameManager _instance;
-
-    private static Script_CharacterManager _characterManager;
-    public Script_CharacterManager CharacterManager { get { return _characterManager; } }
-
-    private static Script_Inventory _inventory;
+    
+    public Script_CharacterManager CharacterManager{get;private set;}
+    public Script_UIManager UIManager { get; private set; }
+    public Script_Inventory Inventory { get; private set; }
 
     // Use this for initialization
     void Awake()
@@ -18,7 +17,10 @@ public class Script_GameManager : MonoBehaviour
         if (_instance != null)
             Debug.LogError("Creating multiple GameManagers!");
         _instance = this;
-        _characterManager = new Script_CharacterManager();
+
+        CharacterManager = new Script_CharacterManager();
+        UIManager = new Script_UIManager();
+        Inventory = new Script_Inventory();
     }
 
     public static Script_GameManager GetInstance()
@@ -33,7 +35,11 @@ public class Script_GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            _characterManager.SwitchPlayerCharacter();
+            CharacterManager.SwitchPlayerCharacter();
+        }
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            UIManager.CharacterPanel.SwitchState();
         }
     }
 }

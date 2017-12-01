@@ -18,12 +18,12 @@ public class Script_PlayerCharacter : Script_Character
         switch (type)
         {
             case PlayerType.Hero:
-                _characterName = "Player";
-                _weapon = new Script_Sword();
+                Name = "Player";
+                Weapon = new Script_Sword();
                 visCharPrefab = Resources.Load<Script_VisualCharacter>("Prefabs/Player");
                 break;
             case PlayerType.Dog:
-                _characterName = "Dog";
+                Name = "Dog";
                 visCharPrefab = Resources.Load<Script_VisualCharacter>("Prefabs/Dog");
                 break;
             default:
@@ -31,7 +31,7 @@ public class Script_PlayerCharacter : Script_Character
         }
 
         _visualCharacter = GameObject.Instantiate(visCharPrefab);
-        _visualCharacter.gameObject.name = _characterName;
+        _visualCharacter.gameObject.name = Name;
         //var cb = _visualCharacter.gameObject.AddComponent<Script_CharacterBehaviour>();
         (_visualCharacter as Script_CharacterBehaviour).SetCharacter(this);
     }
