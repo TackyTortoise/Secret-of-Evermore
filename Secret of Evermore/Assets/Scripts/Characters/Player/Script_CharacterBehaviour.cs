@@ -2,22 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Script_CharacterBehaviour : MonoBehaviour
+public class Script_CharacterBehaviour : Script_VisualCharacter
 {
-    private Camera _mainCamera;
     private CharacterController _controller;
     private float _moveSpeed = 10f;
-    private Script_Character _attachedCharacter;
 
     void Start()
     {
-        _mainCamera = Camera.main;
         _controller = gameObject.AddComponent<CharacterController>();
-    }
-
-    public void SetCharacter(Script_Character character)
-    {
-        _attachedCharacter = character;
     }
 
     // Update is called once per frame
@@ -32,7 +24,7 @@ public class Script_CharacterBehaviour : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Debug.Log("Attacking");
-            _attachedCharacter.GetWeapon().Attack(gameObject);
+            _attachedCharacter.GetWeapon().Attack(this);
         }
     }
 

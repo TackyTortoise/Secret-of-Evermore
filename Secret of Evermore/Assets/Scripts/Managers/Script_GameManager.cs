@@ -8,10 +8,15 @@ public class Script_GameManager : MonoBehaviour
     private static Script_GameManager _instance;
 
     private static Script_CharacterManager _characterManager;
+    public Script_CharacterManager CharacterManager { get { return _characterManager; } }
+
+    private static Script_Inventory _inventory;
 
     // Use this for initialization
     void Start()
     {
+        if (_instance != null)
+            Debug.LogError("Creating multiple GameManagers!");
         _instance = this;
         _characterManager = new Script_CharacterManager();
     }
@@ -22,14 +27,6 @@ public class Script_GameManager : MonoBehaviour
             Debug.LogError("No GameManager present in scene");
 
         return _instance;
-    }
-
-    public void CreateCharacter(Script_Character c)
-    {
-        /*GameObject player = GameObject.CreatePrimitive(PrimitiveType.Capsule);
-        player.AddComponent<Script_CharacterBehaviour>();
-        var vc = player.AddComponent<Script_VisualCharacter>();
-        vc.SetCharacter(c);*/
     }
 
     void Update()

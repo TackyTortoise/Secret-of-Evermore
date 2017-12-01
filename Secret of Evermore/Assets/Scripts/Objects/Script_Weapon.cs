@@ -7,5 +7,10 @@ public abstract class Script_Weapon : Script_Item
     protected int _power = 0;
     protected float _range = 0f;
 
-    public abstract void Attack(GameObject sender);
+    public abstract void Attack(Script_VisualCharacter sender);
+
+    public int GetPower()
+    {
+        return _power;
+    }
 }

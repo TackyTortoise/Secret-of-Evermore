@@ -10,9 +10,9 @@ public class Script_PlayerCharacter : Script_Character
         _characterName = "Player";
         _weapon = new Script_Sword();
 
-        var visCharPrefab = Resources.Load<Script_VisualCharacter>("Prefabs/Capsule");
+        var visCharPrefab = Resources.Load<Script_VisualCharacter>("Prefabs/Player");
         _visualCharacter = GameObject.Instantiate(visCharPrefab);
-        var cb = _visualCharacter.gameObject.AddComponent<Script_CharacterBehaviour>();
-        cb.SetCharacter(this);
+        //var cb = _visualCharacter.gameObject.AddComponent<Script_CharacterBehaviour>();
+        (_visualCharacter as Script_CharacterBehaviour).SetCharacter(this);
     }
 }

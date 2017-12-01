@@ -4,13 +4,13 @@ using UnityEngine;
 
 public abstract class Script_Item
 {
-    protected enum ItemType
+    public enum ItemType
     {
         Sword,
         None,
     }
 
-    protected ItemType _type;
+    public ItemType Type;
 
-    private int _amount;
+    public int Amount;
 }
