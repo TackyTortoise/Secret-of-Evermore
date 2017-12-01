@@ -31,9 +31,9 @@ public class Script_GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            _characterManager.SwitchCharacter();
+            _characterManager.SwitchPlayerCharacter();
         }
     }
 }

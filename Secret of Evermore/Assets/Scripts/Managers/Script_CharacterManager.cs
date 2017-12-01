@@ -11,18 +11,32 @@ public class Script_CharacterManager
 
     public Script_CharacterManager()
     {
-        _characterList.Add(new Script_PlayerCharacter());
+        _characterList.Add(new Script_PlayerCharacter(Script_PlayerCharacter.PlayerType.Hero));
         _characterList[0].GetVisualCharacter().transform.position = new Vector3(0,1,0);
 
-        _selectedCharacter = _characterList[0];
-        Camera.main.GetComponent<Script_FollowCamera>().SetTarget(_selectedCharacter.GetVisualCharacter().transform);
+        _characterList.Add(new Script_PlayerCharacter(Script_PlayerCharacter.PlayerType.Dog));
+        (_characterList[1].GetVisualCharacter() as Script_CharacterBehaviour).SetActiveCharacter(false);
+        (_characterList[1].GetVisualCharacter() as Script_CharacterBehaviour).SetFollowTarget(_characterList[0].GetVisualCharacter().transform);
+        _characterList[1].GetVisualCharacter().transform.position = new Vector3(-1, 1, 0);
+
+        SwitchPlayerCharacter();
 
         SpawnEnemies();
     }
 
-    public void SwitchCharacter()
+    public void SwitchPlayerCharacter()
     {
+        var other = _selectedCharacter;
         _selectedCharacter = _characterList.FirstOrDefault(x => x != _selectedCharacter);
+
+        if (other != null)
+        {
+            (other.GetVisualCharacter() as Script_CharacterBehaviour).SetActiveCharacter(false);
+            (other.GetVisualCharacter() as Script_CharacterBehaviour).SetFollowTarget(_selectedCharacter
+                .GetVisualCharacter().transform);
+        }
+
+        (_selectedCharacter.GetVisualCharacter() as Script_CharacterBehaviour).SetActiveCharacter(true);
         Camera.main.GetComponent<Script_FollowCamera>().SetTarget(_selectedCharacter.GetVisualCharacter().transform);
     }
 

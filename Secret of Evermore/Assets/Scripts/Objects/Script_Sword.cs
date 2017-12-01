@@ -9,7 +9,7 @@ public class Script_Sword : Script_Weapon
     {
         Type = ItemType.Sword;
         _power = 20;
-        _range = 1.5f;
+        _range = 2f;
     }
 
     public override List<Script_Character> GetHitEnemies(Script_VisualCharacter sender)
@@ -20,7 +20,7 @@ public class Script_Sword : Script_Weapon
         startPos += _range / 2f * sender.transform.forward;
 
         //Get enemies hit in area of effect
-        var hitEnemies = Physics.OverlapBox(startPos, new Vector3(_range, _range, _range), sender.transform.rotation).Where(x => x.tag.Equals("Enemy")).ToList();
+        var hitEnemies = Physics.OverlapBox(startPos, new Vector3(1.5f, 1.5f, _range), sender.transform.rotation).Where(x => x.tag.Equals("Enemy")).ToList();
 
         //Convert to characters
         List<Script_Character> result = new List<Script_Character>();
