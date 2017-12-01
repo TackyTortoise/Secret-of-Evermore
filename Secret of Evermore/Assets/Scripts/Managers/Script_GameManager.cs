@@ -13,7 +13,7 @@ public class Script_GameManager : MonoBehaviour
     private static Script_Inventory _inventory;
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         if (_instance != null)
             Debug.LogError("Creating multiple GameManagers!");

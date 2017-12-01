@@ -6,10 +6,13 @@ public class Script_CharacterBehaviour : Script_VisualCharacter
 {
     private CharacterController _controller;
     private float _moveSpeed = 10f;
+    private const float _totalChargeTime = 1.5f;
+    private float _currentChargeTimer = 0f;
 
     void Start()
     {
         _controller = gameObject.AddComponent<CharacterController>();
+        _currentChargeTimer = _totalChargeTime;
     }
 
     // Update is called once per frame
@@ -24,7 +27,19 @@ public class Script_CharacterBehaviour : Script_VisualCharacter
         if (Input.GetMouseButtonDown(0))
         {
             Debug.Log("Attacking");
-            _attachedCharacter.GetWeapon().Attack(this);
+            var hit = _attachedCharacter.Weapon.GetHitEnemies(this);
+            foreach (var e in hit)
+            {
+                e.TakeDamage(GetAttackDamage());
+            }
+            _currentChargeTimer = 0f;
+        }
+
+        if (_currentChargeTimer < _totalChargeTime)
+        {
+            _currentChargeTimer += Time.deltaTime;
+            if (_currentChargeTimer > _totalChargeTime)
+                _currentChargeTimer = _totalChargeTime;
         }
     }
 
@@ -45,5 +60,15 @@ public class Script_CharacterBehaviour : Script_VisualCharacter
                 10f * Time.deltaTime);
 
         _controller.Move(_moveSpeed * move * Time.deltaTime);
+    }
+
+    public float GetCurrentChargePercentage()
+    {
+        return _currentChargeTimer / _totalChargeTime;
+    }
+
+    public int GetAttackDamage()
+    {
+        return (int) (_attachedCharacter.Weapon.GetPower() * GetCurrentChargePercentage() + _attachedCharacter.Attack);
     }
 }

@@ -41,7 +41,7 @@ public class Script_EnemyBehaviour : Script_VisualCharacter
                 var angle = Vector3.Angle(transform.forward, between);
                 if (angle <= _viewAngle / 2f && between.sqrMagnitude <= _baseAttackRange * _baseAttackRange)
                 {
-                    c.TakeDamage(_attachedCharacter.GetTotalDamage());
+                    c.TakeDamage(_attachedCharacter.Attack);
 
                     _attackTimer = 0f;
                     break; //Only can damage one character each attack
