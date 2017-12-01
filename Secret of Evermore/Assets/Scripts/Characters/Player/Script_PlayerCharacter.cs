@@ -19,7 +19,8 @@ public class Script_PlayerCharacter : Script_Character
         {
             case PlayerType.Hero:
                 Name = "Player";
-                Weapon = new Script_Sword();
+                EquipItem(new Script_Sword());
+                Script_GameManager.GetInstance().Inventory.AddItem(Weapon);
                 visCharPrefab = Resources.Load<Script_VisualCharacter>("Prefabs/Player");
                 break;
             case PlayerType.Dog:

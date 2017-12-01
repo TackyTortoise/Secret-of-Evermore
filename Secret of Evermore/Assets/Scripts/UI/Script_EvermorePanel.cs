@@ -16,6 +16,7 @@ public abstract class Script_EvermorePanel : MonoBehaviour
             Time.timeScale = 0f;
         }
         gameObject.SetActive(true);
+        transform.SetAsLastSibling();
         Refresh();
         _active = true;
     }

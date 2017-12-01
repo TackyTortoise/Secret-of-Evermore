@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -13,6 +14,7 @@ public class Script_CharacterBehaviour : Script_VisualCharacter
     private bool _currentlyActive = true;
     private NavMeshAgent _navAgent;
     private Transform _followTarget;
+    private bool _sprinting = false;
 
     void Start()
     {
@@ -22,27 +24,39 @@ public class Script_CharacterBehaviour : Script_VisualCharacter
         _navAgent.speed = _moveSpeed;
     }
 
-    // Update is called once per frame
+
     void Update()
     {
+        //Being controlled by player
         if (_currentlyActive)
         {
+            //Move character
             Movement();
+
+            //Check charge percentage
             if (_currentChargeTimer < _totalChargeTime)
             {
                 _currentChargeTimer += Time.deltaTime;
                 if (_currentChargeTimer > _totalChargeTime)
+                {
                     _currentChargeTimer = _totalChargeTime;
+                    _sprinting = false;
+                }
             }
+
+            //Check for attack
             Attack();
         }
+        //Follow other character automatically
         else
             FollowTarget();
     }
 
+
     void Attack()
     {
-        if (Input.GetMouseButtonDown(0))
+        //Left mouse button pressed
+        if (Input.GetMouseButtonDown(0) && Script_GameManager.GetInstance().UIManager.ActivePanels == 0)
         {
             //Attack with weapon if you have one
             if (_attachedCharacter.Weapon != null)
@@ -53,6 +67,7 @@ public class Script_CharacterBehaviour : Script_VisualCharacter
                     e.TakeDamage(GetAttackDamage());
                 }
             }
+            //Hit enemy right in front with "fist"
             else
             {
                 RaycastHit hit;
@@ -77,7 +92,7 @@ public class Script_CharacterBehaviour : Script_VisualCharacter
         float inputVer = Input.GetAxis("Vertical");
 
         //Only four directional movement
-        if (inputHor > 0f)
+        if (Math.Abs(inputHor) > .2f)
             inputVer = 0f;
 
         var move = inputHor * Vector3.right + inputVer * Vector3.forward;
@@ -87,13 +102,24 @@ public class Script_CharacterBehaviour : Script_VisualCharacter
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(move),
                 10f * Time.deltaTime);
 
-        _controller.Move(_moveSpeed * move * Time.deltaTime);
+        //Check sprint button press
+        if (Input.GetKeyDown(KeyCode.LeftShift) && Math.Abs(_currentChargeTimer - _totalChargeTime) < 1e-5)
+        {
+            _sprinting = true;
+            _currentChargeTimer = 0;
+        }
+
+        var speed = _sprinting ? _moveSpeed * 1.5f : _moveSpeed;
+        _controller.Move(speed * move * Time.deltaTime);
     }
 
     public void FollowTarget()
     {
-        _navAgent.isStopped = false;
+        //_navAgent.isStopped = false;
         _navAgent.destination = _followTarget.position;
+        if ((_followTarget.position - transform.position).sqrMagnitude <=
+            _navAgent.stoppingDistance * _navAgent.stoppingDistance)
+            _navAgent.destination = transform.position;
     }
 
     public float GetCurrentChargePercentage()
@@ -113,7 +139,7 @@ public class Script_CharacterBehaviour : Script_VisualCharacter
         _currentlyActive = active;
         if (_navAgent == null)
             _navAgent = GetComponent<NavMeshAgent>();
-        _navAgent.isStopped = true;
+        _navAgent.isStopped = active;
     }
 
     public void SetFollowTarget(Transform target)

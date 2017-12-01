@@ -11,17 +11,19 @@ public class Script_Inventory
     public void AddItem(Script_Item item)
     {
         //Check if item type already exists in inventory
-        var inventoryItem = _itemList.First(x => x.Type == item.Type);
-        if (inventoryItem != null)
+        if (_itemList.Count > 0)
         {
-            //Add amount
-            inventoryItem.Amount += item.Amount;
+            var inventoryItem = _itemList.First(x => x.Type == item.Type);
+            if (inventoryItem != null)
+            {
+                //Add amount
+                inventoryItem.Amount += item.Amount;
+                return;
+            }
         }
-        else
-        {
-            //Add new item type in inventory
-            _itemList.Add(item);
-        }
+
+        //Add new item type in inventory
+        _itemList.Add(item);
     }
 
     public void RemoveItem(Script_Item item)
@@ -41,11 +43,21 @@ public class Script_Inventory
 
     public int GetTotalAttackBoost()
     {
-        return _itemList.Sum(x => x.AttackBoost);
+        return GetEquipedItems().Sum(x => x.AttackBoost);
     }
 
     public int GetTotalDefenseBoost()
     {
-        return _itemList.Sum(x => x.DefenseBoost);
+        return GetEquipedItems().Sum(x => x.DefenseBoost);
+    }
+
+    public List<Script_Item> GetEquipedItems()
+    {
+        return _itemList.Where(x => x.Equiped).ToList();
+    }
+
+    public List<Script_Item> GetUnEquipedItems()
+    {
+        return _itemList.Where(x => !x.Equiped).ToList();
     }
 }

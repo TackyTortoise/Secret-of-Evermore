@@ -18,9 +18,9 @@ public class Script_GameManager : MonoBehaviour
             Debug.LogError("Creating multiple GameManagers!");
         _instance = this;
 
+        Inventory = new Script_Inventory();
         CharacterManager = new Script_CharacterManager();
         UIManager = new Script_UIManager();
-        Inventory = new Script_Inventory();
     }
 
     public static Script_GameManager GetInstance()
@@ -40,6 +40,15 @@ public class Script_GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.C))
         {
             UIManager.CharacterPanel.SwitchState();
+        }
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            UIManager.InventoryPanel.SwitchState();
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            UIManager.InventoryPanel.Hide();
+            UIManager.CharacterPanel.Hide();
         }
     }
 }

@@ -7,7 +7,8 @@ public abstract class Script_Item
 {
     public enum ItemType
     {
-        Sword,
+        Weapon,
+        Armor,
         None,
     }
 
@@ -17,4 +18,6 @@ public abstract class Script_Item
 
     public int AttackBoost { get; protected set; }
     public int DefenseBoost { get; protected set; }
+
+    public bool Equiped = false;
 }

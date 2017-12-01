@@ -164,7 +164,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Item boosts
+  m_Text: Equiped item boosts
 --- !u!114 &114040415519951530
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -336,7 +336,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1463383881417336}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -45.64, y: -27.649994, z: 0}
+  m_LocalPosition: {x: -0.8450241, y: -27.649994, z: 0}
   m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
   m_Children: []
   m_Father: {fileID: 224783177223549148}
@@ -344,8 +344,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -143.19, y: -165}
-  m_SizeDelta: {x: 89, y: 18.35}
+  m_AnchoredPosition: {x: -98.39503, y: -165}
+  m_SizeDelta: {x: 178.59, y: 18.35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224723788178476944
 RectTransform:
