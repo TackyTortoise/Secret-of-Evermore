@@ -10,6 +10,7 @@ public class Script_GameManager : MonoBehaviour
     public Script_CharacterManager CharacterManager{get;private set;}
     public Script_UIManager UIManager { get; private set; }
     public Script_Inventory Inventory { get; private set; }
+    public Script_CombatTextManager CombatTextManager { get; private set; }
 
     // Use this for initialization
     void Awake()
@@ -21,6 +22,14 @@ public class Script_GameManager : MonoBehaviour
         Inventory = new Script_Inventory();
         CharacterManager = new Script_CharacterManager();
         UIManager = new Script_UIManager();
+        CombatTextManager = new Script_CombatTextManager();
+
+        Inventory.AddItem(new Script_HealthPotion());
+        Inventory.AddItem(new Script_HealthPotion());
+        Inventory.AddItem(new Script_HealthPotion());
+        Inventory.AddItem(new Script_Spear());
+        Inventory.AddItem(new Script_Armor("Bronze chest", Script_Armor.ArmorType.Chest, 2));
+        Inventory.AddItem(new Script_Sword());
     }
 
     public static Script_GameManager GetInstance()

@@ -27,7 +27,7 @@ public class Script_CharacterPanel : Script_EvermorePanel
         stringBuilder.Append("\n");
 
         stringBuilder.Append("Weapon: ");
-        stringBuilder.Append(_character.Weapon.Name);
+        stringBuilder.Append(_character.Weapon != null ? _character.Weapon.Name : "/");
         stringBuilder.Append("\n");
 
         stringBuilder.Append("Health: ");

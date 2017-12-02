@@ -6,30 +6,27 @@ using UnityEngine;
 
 public class Script_PlayerCharacter : Script_Character
 {
-    public enum PlayerType
-    {
-        Hero,
-        Dog
-    }
-
-    public Script_PlayerCharacter(PlayerType type)
+    public Script_PlayerCharacter(CharacterType type)
     {
         Script_VisualCharacter visCharPrefab;
         switch (type)
         {
-            case PlayerType.Hero:
+            case CharacterType.Hero:
                 Name = "Player";
-                EquipItem(new Script_Sword());
-                Script_GameManager.GetInstance().Inventory.AddItem(Weapon);
                 visCharPrefab = Resources.Load<Script_VisualCharacter>("Prefabs/Player");
                 break;
-            case PlayerType.Dog:
+            case CharacterType.Dog:
                 Name = "Dog";
+                Attack = 15;
+                MaxHealth = 150;
+                CurrentHealth = MaxHealth;
                 visCharPrefab = Resources.Load<Script_VisualCharacter>("Prefabs/Dog");
                 break;
             default:
                 throw new ArgumentOutOfRangeException("type", type, null);
         }
+
+        CharType = type;
 
         _visualCharacter = GameObject.Instantiate(visCharPrefab);
         _visualCharacter.gameObject.name = Name;

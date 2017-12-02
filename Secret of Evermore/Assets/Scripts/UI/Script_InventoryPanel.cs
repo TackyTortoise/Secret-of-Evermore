@@ -7,7 +7,7 @@ public class Script_InventoryPanel : Script_EvermorePanel
     private Transform _equipedGrid;
     private Transform _inventoryGrid;
     private Script_VisualItemUI _inventoryImagePrefab;
-    
+
     public override void Initialise()
     {
         _equipedGrid = transform.GetChild(0);
@@ -39,5 +39,22 @@ public class Script_InventoryPanel : Script_EvermorePanel
             obj.SetItem(item);
             obj.transform.SetParent(_inventoryGrid);
         }
+    }
+
+    public void SwitchItemInventoryList(Script_VisualItemUI item)
+    {
+        if (item.transform.parent == _equipedGrid)
+            item.transform.SetParent(_inventoryGrid);
+        else if (item.transform.parent == _inventoryGrid)
+            item.transform.SetParent(_equipedGrid);
+
+        item.transform.SetAsLastSibling();
+    }
+
+    public override void Hide()
+    {
+        base.Hide();
+        if (Script_VisualItemUI.ItemNameDisplay != null)
+            Script_VisualItemUI.ItemNameDisplay.SetActive(false);
     }
 }

@@ -11,24 +11,31 @@ public class Script_CharacterManager
 
     public Script_CharacterManager()
     {
-        _characterList.Add(new Script_PlayerCharacter(Script_PlayerCharacter.PlayerType.Hero));
+        //Create hero
+        _characterList.Add(new Script_PlayerCharacter(Script_Character.CharacterType.Hero));
         _characterList[0].GetVisualCharacter().transform.position = new Vector3(0,1,0);
 
-        _characterList.Add(new Script_PlayerCharacter(Script_PlayerCharacter.PlayerType.Dog));
+        //Create dog and make it follow the hero
+        _characterList.Add(new Script_PlayerCharacter(Script_Character.CharacterType.Dog));
         (_characterList[1].GetVisualCharacter() as Script_CharacterBehaviour).SetActiveCharacter(false);
         (_characterList[1].GetVisualCharacter() as Script_CharacterBehaviour).SetFollowTarget(_characterList[0].GetVisualCharacter().transform);
         _characterList[1].GetVisualCharacter().transform.position = new Vector3(-1, 1, 0);
 
+        //Set hero as active character
         SwitchPlayerCharacter();
 
+        //Spawn enemies
         SpawnEnemies();
     }
 
     public void SwitchPlayerCharacter()
     {
+        //Save character to make other follow
         var other = _selectedCharacter;
+        //Select other character
         _selectedCharacter = _characterList.FirstOrDefault(x => x != _selectedCharacter);
 
+        //Make previously selected follow newly selected
         if (other != null)
         {
             (other.GetVisualCharacter() as Script_CharacterBehaviour).SetActiveCharacter(false);
@@ -36,6 +43,7 @@ public class Script_CharacterManager
                 .GetVisualCharacter().transform);
         }
 
+        //Set selected character as active and make camera follow
         (_selectedCharacter.GetVisualCharacter() as Script_CharacterBehaviour).SetActiveCharacter(true);
         Camera.main.GetComponent<Script_FollowCamera>().SetTarget(_selectedCharacter.GetVisualCharacter().transform);
     }

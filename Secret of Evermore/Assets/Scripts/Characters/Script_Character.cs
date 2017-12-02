@@ -7,7 +7,7 @@ public abstract class Script_Character
 {
     public String Name { get; protected set; }
     public int CurrentHealth { get; protected set; }
-    public int MaxHealth { get; private set; }
+    public int MaxHealth { get; protected set; }
     public int Attack { get; protected set; }
     public int Defense { get; protected set; }
     protected Script_VisualCharacter _visualCharacter;
@@ -16,6 +16,15 @@ public abstract class Script_Character
     public Script_Armor Helm { get; protected set; }
     public Script_Armor Chest { get; protected set; }
     public Script_Armor Legs { get; protected set; }
+
+    public CharacterType CharType { get; protected set; }
+
+    public enum CharacterType
+    {
+        Enemy,
+        Hero,
+        Dog
+    }
 
     public Script_Character()
     {
@@ -33,7 +42,16 @@ public abstract class Script_Character
     public void TakeDamage(int number)
     {
         Debug.Log(Name + " taking " + number + " damage");
-        CurrentHealth -= Math.Max(0, number - Defense);
+        var equipedBoost = 0;
+        Script_GameManager.GetInstance().Inventory.GetEquipedItems().ForEach(x => equipedBoost += x.DefenseBoost);
+        var damage = Math.Max(0, number - (Defense + equipedBoost));
+        CurrentHealth -= damage;
+        Script_GameManager.GetInstance().CombatTextManager.AddText(damage.ToString(), _visualCharacter.transform.position + 2*Vector3.up);
+    }
+
+    public void Heal(int number)
+    {
+        CurrentHealth += Math.Min(number, MaxHealth - CurrentHealth);
     }
 
     public void EquipItem(Script_Item item)
@@ -48,7 +66,7 @@ public abstract class Script_Character
         else if (item.Type == Script_Item.ItemType.Armor)
         {
             var armor = item as Script_Armor;
-            switch (armor.Type)
+            switch (armor.GearType)
             {
                 case Script_Armor.ArmorType.Chest:
                     UnEquip(Chest);
@@ -69,11 +87,15 @@ public abstract class Script_Character
                     throw new ArgumentOutOfRangeException();
             }
         }
+        Script_GameManager.GetInstance().UIManager.InventoryPanel.SwitchItemInventoryList(item.UIItem);
     }
 
     public void UnEquip(Script_Item item)
     {
-        if (item != null)
+        if (item != null && item.Equiped)
+        {
             item.Equiped = false;
+            Script_GameManager.GetInstance().UIManager.InventoryPanel.SwitchItemInventoryList(item.UIItem);
+        }
     }
 }

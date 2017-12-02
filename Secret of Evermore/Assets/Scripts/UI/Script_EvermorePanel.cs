@@ -20,7 +20,7 @@ public abstract class Script_EvermorePanel : MonoBehaviour
         Refresh();
         _active = true;
     }
-    public void Hide()
+    public virtual void Hide()
     {
         if (_active)
         {

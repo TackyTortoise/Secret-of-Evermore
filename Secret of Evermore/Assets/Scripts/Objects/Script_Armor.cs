@@ -12,12 +12,13 @@ public class Script_Armor : Script_Item
         Helm
     }
 
-    public ArmorType Type { get; private set; }
+    public ArmorType GearType { get; private set; }
 
     public Script_Armor(String name, ArmorType type, int defenseBonus)
     {
         Name = name;
-        Type = type;
+        GearType = type;
+        Type = ItemType.Armor;
         DefenseBoost = defenseBonus;
     }
 }

@@ -3,16 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Script_Sword : Script_Weapon
+public class Script_Spear : Script_Weapon
 {
-    public Script_Sword()
+    public Script_Spear()
     {
-        Type = ItemType.Weapon;
-        Name = "Sword";
-        AttackBoost = 20;
-        _range = 2f;
+        Name = "Spear";
+        AttackBoost = 17;
+        _range = 4f;
     }
-
     public override List<Script_Character> GetHitEnemies(Script_VisualCharacter sender)
     {
         var colHalfHeight = sender.GetComponent<Collider>().bounds.extents.y;
@@ -21,7 +19,7 @@ public class Script_Sword : Script_Weapon
         startPos += _range / 2f * sender.transform.forward;
 
         //Get enemies hit in area of effect
-        var hitEnemies = Physics.OverlapBox(startPos, new Vector3(1.5f, 1.5f, _range), sender.transform.rotation).Where(x => x.tag.Equals("Enemy")).ToList();
+        var hitEnemies = Physics.OverlapBox(startPos, new Vector3(1f, 1f, _range), sender.transform.rotation).Where(x => x.tag.Equals("Enemy")).ToList();
 
         //Convert to characters
         List<Script_Character> result = new List<Script_Character>();

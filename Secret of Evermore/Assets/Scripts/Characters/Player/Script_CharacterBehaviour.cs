@@ -71,8 +71,7 @@ public class Script_CharacterBehaviour : Script_VisualCharacter
             else
             {
                 RaycastHit hit;
-                Debug.DrawLine(transform.position + transform.forward, transform.position + 2f * transform.forward, Color.red, 3f);
-                if (Physics.Raycast(transform.position + transform.forward, transform.forward, out hit, 2f))
+                if (Physics.Raycast(transform.position, transform.forward, out hit, 2f, ~(1 << LayerMask.NameToLayer("Player"))))
                 {
                     if (hit.collider.tag == "Enemy")
                     {
@@ -129,9 +128,14 @@ public class Script_CharacterBehaviour : Script_VisualCharacter
 
     public int GetAttackDamage()
     {
-        if (_attachedCharacter.Weapon == null)
+        if (_attachedCharacter.CharType == Script_Character.CharacterType.Dog)
+        {
             return _attachedCharacter.Attack;
-        return (int)(_attachedCharacter.Weapon.AttackBoost * GetCurrentChargePercentage() + _attachedCharacter.Attack);
+        }
+
+        int equipedBoost = 0;
+        Script_GameManager.GetInstance().Inventory.GetEquipedItems().ForEach(x => equipedBoost+=x.AttackBoost);
+        return (int)(equipedBoost * GetCurrentChargePercentage()) + _attachedCharacter.Attack;
     }
 
     public void SetActiveCharacter(bool active)
