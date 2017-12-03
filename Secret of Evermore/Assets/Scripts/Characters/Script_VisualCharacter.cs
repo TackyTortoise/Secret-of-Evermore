@@ -5,18 +5,6 @@ using UnityEngine;
 public class Script_VisualCharacter : MonoBehaviour
 {
     protected Script_Character _attachedCharacter;
-
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     
     public void SetCharacter(Script_Character character)
     {

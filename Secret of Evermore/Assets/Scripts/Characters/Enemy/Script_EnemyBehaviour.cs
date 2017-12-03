@@ -19,6 +19,7 @@ public class Script_EnemyBehaviour : Script_VisualCharacter
     {
         _attackTimer = _attackInterval;
         _navAgent = GetComponent<NavMeshAgent>();
+        _navAgent.Warp(transform.position);
     }
 
     // Update is called once per frame

@@ -15,7 +15,7 @@ public class Script_Inventory
         Currency = 0;
     }
 
-    public void AddItem(Script_Item item)
+    public void AddItem(Script_Item item, int amount = 1)
     {
         //Check if item type already exists in inventory
         if (_itemList.Count > 0)
@@ -24,12 +24,13 @@ public class Script_Inventory
             if (inventoryItem != null && inventoryItem.Type == Script_Item.ItemType.Consumable)
             {
                 //Add amount
-                inventoryItem.Amount += item.Amount;
+                inventoryItem.Amount += amount;
                 return;
             }
         }
 
         //Add new item type in inventory
+        item.Amount = amount;
         _itemList.Add(item);
     }
 

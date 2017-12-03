@@ -24,6 +24,8 @@ public class Script_ShopPanel : Script_EvermorePanel
             Destroy(child.gameObject);
         }
 
+        if (AttachedKeeper == null)
+            return;
         foreach (var entry in AttachedKeeper.ShopEntries)
         {
             var obj = Instantiate(_itemImagePrefab);

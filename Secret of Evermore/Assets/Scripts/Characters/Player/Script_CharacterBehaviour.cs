@@ -22,6 +22,9 @@ public class Script_CharacterBehaviour : Script_VisualCharacter
         _currentChargeTimer = _totalChargeTime;
         _navAgent = GetComponent<NavMeshAgent>();
         _navAgent.speed = _moveSpeed;
+        _navAgent.Warp(transform.position);
+        _navAgent.destination = transform.position;
+        _navAgent.ResetPath();
     }
 
 

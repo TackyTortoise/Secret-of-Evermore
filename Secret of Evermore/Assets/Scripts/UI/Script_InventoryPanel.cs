@@ -50,6 +50,8 @@ public class Script_InventoryPanel : Script_EvermorePanel
 
     public void SwitchItemInventoryList(Script_VisualItemUI item)
     {
+        if (item == null)
+            return;
         if (item.transform.parent == _equipedGrid)
             item.transform.SetParent(_inventoryGrid);
         else if (item.transform.parent == _inventoryGrid)

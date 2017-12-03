@@ -33,4 +33,9 @@ public class Script_PlayerCharacter : Script_Character
         //var cb = _visualCharacter.gameObject.AddComponent<Script_CharacterBehaviour>();
         (_visualCharacter as Script_CharacterBehaviour).SetCharacter(this);
     }
+
+    protected override void  Die()
+    {
+        Script_GameManager.GetInstance().CompleteGame(false);
+    }
 }

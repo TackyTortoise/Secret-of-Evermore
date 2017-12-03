@@ -41,7 +41,6 @@ public abstract class Script_Character
 
     public void TakeDamage(int number)
     {
-        Debug.Log(Name + " taking " + number + " damage");
         //Get defense boost
         var equipedBoost = 0;
         Script_GameManager.GetInstance().Inventory.GetEquipedItems().ForEach(x => equipedBoost += x.DefenseBoost);

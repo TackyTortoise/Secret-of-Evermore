@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class Script_ShopKeeper : MonoBehaviour
 {
@@ -23,7 +24,17 @@ public class Script_ShopKeeper : MonoBehaviour
     void Start()
     {
         ShopEntries = new List<ShopEntry>();
-        ShopEntries.Add(new ShopEntry(new Script_Axe(), 100));
+        ShopEntries.Add(new ShopEntry(new Script_Axe(), 50));
+        ShopEntries.Add(new ShopEntry(new Script_Spear(), 70));
+        ShopEntries.Add(new ShopEntry(new Script_Armor("Bronze Chest", Script_Armor.ArmorType.Chest, 4), 40));
+        ShopEntries.Add(new ShopEntry(new Script_Armor("Bronze Helm", Script_Armor.ArmorType.Helm, 2), 25));
+        ShopEntries.Add(new ShopEntry(new Script_Armor("Bronze Legs", Script_Armor.ArmorType.Legs, 3), 30));
+        ShopEntries.Add(new ShopEntry(new Script_Armor("Iron Chest", Script_Armor.ArmorType.Chest, 6), 55));
+        ShopEntries.Add(new ShopEntry(new Script_Armor("Iron Helm", Script_Armor.ArmorType.Helm, 4), 40));
+        ShopEntries.Add(new ShopEntry(new Script_Armor("Iron Legs", Script_Armor.ArmorType.Legs, 5), 45));
+        var hp = new Script_HealthPotion();
+        hp.Amount = 10;
+        ShopEntries.Add(new ShopEntry(hp, 10));
         transform.GetChild(0).gameObject.SetActive(false);
     }
 
@@ -59,7 +70,9 @@ public class Script_ShopKeeper : MonoBehaviour
         if (entry.Item != null && inventory.Currency >= entry.Price)
         {
             //Remove item from shop
-            ShopEntries.Remove(entry);
+            --entry.Item.Amount;
+            if (entry.Item.Amount <= 0)
+                ShopEntries.Remove(entry);
             //Adjust currency
             inventory.Currency -= entry.Price;
             //Move item to inventory
