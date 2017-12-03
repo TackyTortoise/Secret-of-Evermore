@@ -11,15 +11,17 @@ public class Script_CharacterManager
 
     public Script_CharacterManager()
     {
+        var playerPos = GameObject.Find("PlayerSpawn");
+
         //Create hero
         _characterList.Add(new Script_PlayerCharacter(Script_Character.CharacterType.Hero));
-        _characterList[0].GetVisualCharacter().transform.position = new Vector3(0,1,0);
+        _characterList[0].GetVisualCharacter().transform.position = playerPos.transform.position;
 
         //Create dog and make it follow the hero
         _characterList.Add(new Script_PlayerCharacter(Script_Character.CharacterType.Dog));
         (_characterList[1].GetVisualCharacter() as Script_CharacterBehaviour).SetActiveCharacter(false);
         (_characterList[1].GetVisualCharacter() as Script_CharacterBehaviour).SetFollowTarget(_characterList[0].GetVisualCharacter().transform);
-        _characterList[1].GetVisualCharacter().transform.position = new Vector3(-1, 1, 0);
+        _characterList[1].GetVisualCharacter().transform.position = playerPos.transform.position + 2 * Vector3.left;
 
         //Set hero as active character
         SwitchPlayerCharacter();

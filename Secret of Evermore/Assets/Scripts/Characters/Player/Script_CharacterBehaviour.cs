@@ -61,10 +61,29 @@ public class Script_CharacterBehaviour : Script_VisualCharacter
             //Attack with weapon if you have one
             if (_attachedCharacter.Weapon != null)
             {
-                var hit = _attachedCharacter.Weapon.GetHitEnemies(this);
-                foreach (var e in hit)
+                //Check what was hit by weapon
+                var hit = _attachedCharacter.Weapon.GetHitObjects(this);
+                foreach (var o in hit)
                 {
-                    e.TakeDamage(GetAttackDamage());
+                    //Deal damage to hit enemies
+                    if (o.tag == "Enemy")
+                    {
+                        var es = o.GetComponent<Script_EnemyBehaviour>();
+                        if (es != null)
+                        {
+                            es.GetAttachedCharacter().TakeDamage(GetAttackDamage());
+                        }
+                    }
+
+                    //Destruct destructables
+                    if (o.tag == "Destructable")
+                    {
+                        var ds = o.GetComponent<Script_Destructable>();
+                        if (ds != null)
+                        {
+                            ds.Destruct(_attachedCharacter.Weapon);
+                        }
+                    }
                 }
             }
             //Hit enemy right in front with "fist"
