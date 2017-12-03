@@ -1,18 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Script_InventoryPanel : Script_EvermorePanel
 {
     private Transform _equipedGrid;
     private Transform _inventoryGrid;
     private Script_VisualItemUI _inventoryImagePrefab;
+    private Text _currencyText;
 
     public override void Initialise()
     {
         _equipedGrid = transform.GetChild(0);
         _inventoryGrid = transform.GetChild(1);
         _inventoryImagePrefab = Resources.Load<Script_VisualItemUI>("Prefabs/UI/ItemInventoryImage");
+        _currencyText = transform.GetChild(2).GetComponent<Text>();
     }
 
     public override void Refresh()
@@ -30,6 +33,7 @@ public class Script_InventoryPanel : Script_EvermorePanel
         {
             var obj = Instantiate(_inventoryImagePrefab);
             obj.SetItem(item);
+            obj.VisualType = Script_VisualItemUI.VisualItemType.Inventory;
             obj.transform.SetParent(_equipedGrid);
         }
 
@@ -37,8 +41,11 @@ public class Script_InventoryPanel : Script_EvermorePanel
         {
             var obj = Instantiate(_inventoryImagePrefab);
             obj.SetItem(item);
+            obj.VisualType = Script_VisualItemUI.VisualItemType.Inventory;
             obj.transform.SetParent(_inventoryGrid);
         }
+
+        _currencyText.text = Script_GameManager.GetInstance().Inventory.Currency + " G";
     }
 
     public void SwitchItemInventoryList(Script_VisualItemUI item)

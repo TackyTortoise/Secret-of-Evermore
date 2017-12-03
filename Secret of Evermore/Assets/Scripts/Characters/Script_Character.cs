@@ -42,12 +42,20 @@ public abstract class Script_Character
     public void TakeDamage(int number)
     {
         Debug.Log(Name + " taking " + number + " damage");
+        //Get defense boost
         var equipedBoost = 0;
         Script_GameManager.GetInstance().Inventory.GetEquipedItems().ForEach(x => equipedBoost += x.DefenseBoost);
+        //Take adjusted amage
         var damage = Math.Max(0, number - (Defense + equipedBoost));
         CurrentHealth -= damage;
+        //Die
+        if (CurrentHealth <= 0)
+            Die();
+        //Show combat text
         Script_GameManager.GetInstance().CombatTextManager.AddText(damage.ToString(), _visualCharacter.transform.position + 2*Vector3.up);
     }
+
+    protected virtual void Die(){}
 
     public void Heal(int number)
     {
@@ -95,6 +103,14 @@ public abstract class Script_Character
         if (item != null && item.Equiped)
         {
             item.Equiped = false;
+            if (item == Weapon)
+                Weapon = null;
+            if (item == Helm)
+                Helm = null;
+            if (item == Chest)
+                Chest = null;
+            if (item == Legs)
+                Legs = null;
             Script_GameManager.GetInstance().UIManager.InventoryPanel.SwitchItemInventoryList(item.UIItem);
         }
     }

@@ -30,7 +30,6 @@ public class Script_GameManager : MonoBehaviour
         Inventory.AddItem(new Script_Spear());
         Inventory.AddItem(new Script_Armor("Bronze chest", Script_Armor.ArmorType.Chest, 2));
         Inventory.AddItem(new Script_Sword());
-        Inventory.AddItem(new Script_Axe());
     }
 
     public static Script_GameManager GetInstance()
@@ -59,6 +58,7 @@ public class Script_GameManager : MonoBehaviour
         {
             UIManager.InventoryPanel.Hide();
             UIManager.CharacterPanel.Hide();
+            UIManager.ShopPanel.Hide();
         }
     }
 }

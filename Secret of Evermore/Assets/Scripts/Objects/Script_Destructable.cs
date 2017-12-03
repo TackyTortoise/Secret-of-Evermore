@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class Script_Destructable : MonoBehaviour
 {
-    public Script_Weapon.WeaponType TypeToDestroy = Script_Weapon.WeaponType.None;
+    [SerializeField]
+    private Script_Weapon.WeaponType TypeToDestroy = Script_Weapon.WeaponType.None;
+    [SerializeField]
+    private int _currencyReward = 0;
 
     public void Destruct(Script_Weapon sendWeapon)
     {
@@ -13,6 +16,7 @@ public class Script_Destructable : MonoBehaviour
         if (sendWeapon.WeapType == TypeToDestroy || TypeToDestroy == Script_Weapon.WeaponType.None)
         {
             Destroy(gameObject);
+            Script_GameManager.GetInstance().Inventory.Currency += _currencyReward;
         }
     }
 }

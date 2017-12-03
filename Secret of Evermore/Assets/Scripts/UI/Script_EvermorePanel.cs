@@ -39,4 +39,9 @@ public abstract class Script_EvermorePanel : MonoBehaviour
         else
             Show();
     }
+
+    public bool IsActive()
+    {
+        return _active;
+    }
 }

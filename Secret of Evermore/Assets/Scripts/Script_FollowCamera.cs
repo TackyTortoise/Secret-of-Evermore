@@ -5,9 +5,15 @@ using UnityEngine;
 public class Script_FollowCamera : MonoBehaviour
 {
     private Transform _target;
-    private Vector3 _offset = new Vector3(0,10,-10);
+    private Vector3 _offset = new Vector3(0,15,-10);
     [SerializeField]
     private float _speed = 10f;
+
+    private void Start()
+    {
+        transform.position = _offset;
+        transform.LookAt(Vector3.zero);
+    }
 
     public void SetTarget(Transform t)
     {

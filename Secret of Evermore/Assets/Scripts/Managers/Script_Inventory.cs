@@ -7,10 +7,12 @@ using UnityEngine;
 public class Script_Inventory
 {
     private List<Script_Item> _itemList;// = new List<Script_Item>();
+    public int Currency;
 
     public Script_Inventory()
     {
         _itemList = new List<Script_Item>();
+        Currency = 0;
     }
 
     public void AddItem(Script_Item item)
@@ -34,7 +36,7 @@ public class Script_Inventory
     public void RemoveItem(Script_Item item, int amount = 1)
     {
         //Find inventory slot of item type
-        var inventoryItem = _itemList.First(x => x.Type == item.Type);
+        var inventoryItem = _itemList.First(x => x.Name == item.Name);
         if (inventoryItem != null)
         {
             //Remove amount of items

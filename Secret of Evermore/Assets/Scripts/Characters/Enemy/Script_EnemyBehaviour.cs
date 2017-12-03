@@ -10,7 +10,7 @@ public class Script_EnemyBehaviour : Script_VisualCharacter
 
     private float _viewAngle = 90f;
 
-    private const float _attackInterval = .4f;
+    private const float _attackInterval = .7f;
     private float _attackTimer = 0f;
 
     private NavMeshAgent _navAgent;

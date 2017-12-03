@@ -6,6 +6,7 @@ public class Script_UIManager
 {
     public Script_CharacterPanel CharacterPanel { get; private set; }
     public Script_InventoryPanel InventoryPanel { get; private set; }
+    public Script_ShopPanel ShopPanel { get; private set; }
     public GameObject Canvas { get; private set; }
 
     public int ActivePanels = 0;
@@ -24,5 +25,11 @@ public class Script_UIManager
         InventoryPanel.transform.SetParent(Canvas.transform);
         InventoryPanel.transform.localPosition = Vector3.zero;
         InventoryPanel.Hide();
+
+        ShopPanel = GameObject.Instantiate(Resources.Load<Script_ShopPanel>("Prefabs/UI/ShopPanel"));
+        ShopPanel.Initialise();
+        ShopPanel.transform.SetParent(Canvas.transform);
+        ShopPanel.transform.localPosition = Vector3.zero;
+        ShopPanel.Hide();
     }
 }
