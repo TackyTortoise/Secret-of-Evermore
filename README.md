@@ -3,7 +3,7 @@ Secret of evermore programming test for nitro games
 
 This game is based on Secret of Evermore, originally for SNES (https://en.wikipedia.org/wiki/Secret_of_Evermore)
 
-#Basic Gameplay  
+# Basic Gameplay  
 Break pots and kill enemies to get gold  
 Find the key to open the shop  
 Buy axe from the shop  
