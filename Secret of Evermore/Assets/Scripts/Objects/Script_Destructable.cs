@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Script_Destructable : MonoBehaviour
 {
@@ -13,6 +11,8 @@ public class Script_Destructable : MonoBehaviour
     {
         if (sendWeapon == null)
             return;
+
+        //Destroy object if hit by correct type of weapon
         if (sendWeapon.WeapType == TypeToDestroy || TypeToDestroy == Script_Weapon.WeaponType.None)
         {
             Destroy(gameObject);

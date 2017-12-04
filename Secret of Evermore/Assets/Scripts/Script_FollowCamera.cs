@@ -19,10 +19,10 @@ public class Script_FollowCamera : MonoBehaviour
     {
         _target = t;
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
+        //Follow target
         transform.position = Vector3.Lerp(transform.position, _target.position + _offset, _speed * Time.deltaTime);
     }
 }

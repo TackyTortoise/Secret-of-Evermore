@@ -30,6 +30,10 @@ public class Script_CharacterBehaviour : Script_VisualCharacter
 
     void Update()
     {
+        //Don't update when dead
+        if (_attachedCharacter.CurrentHealth <= 0)
+            return;
+
         //Being controlled by player
         if (_currentlyActive)
         {

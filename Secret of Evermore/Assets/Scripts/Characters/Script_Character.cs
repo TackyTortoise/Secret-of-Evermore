@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Script_Character
@@ -44,12 +42,15 @@ public abstract class Script_Character
         //Get defense boost
         var equipedBoost = 0;
         Script_GameManager.GetInstance().Inventory.GetEquipedItems().ForEach(x => equipedBoost += x.DefenseBoost);
-        //Take adjusted amage
+        //Take adjusted damage
         var damage = Math.Max(0, number - (Defense + equipedBoost));
         CurrentHealth -= damage;
         //Die
         if (CurrentHealth <= 0)
+        {
+            CurrentHealth = 0;
             Die();
+        }
         //Show combat text
         Script_GameManager.GetInstance().CombatTextManager.AddText(damage.ToString(), _visualCharacter.transform.position + 2*Vector3.up);
     }
@@ -65,13 +66,16 @@ public abstract class Script_Character
     {
         if (item.Type == Script_Item.ItemType.Weapon)
         {
+            //Unequip current weapon if in same slot
             UnEquip(Weapon);
 
+            //Equip new weapon
             Weapon = item as Script_Weapon;
             Weapon.Equiped = true;
         }
         else if (item.Type == Script_Item.ItemType.Armor)
         {
+            //Unequip armor of same type and equip new one
             var armor = item as Script_Armor;
             switch (armor.GearType)
             {
@@ -94,6 +98,8 @@ public abstract class Script_Character
                     throw new ArgumentOutOfRangeException();
             }
         }
+
+        //Switch inventory image from unequiped to equiped
         Script_GameManager.GetInstance().UIManager.InventoryPanel.SwitchItemInventoryList(item.UIItem);
     }
 
@@ -102,6 +108,7 @@ public abstract class Script_Character
         if (item != null && item.Equiped)
         {
             item.Equiped = false;
+
             if (item == Weapon)
                 Weapon = null;
             if (item == Helm)
@@ -110,6 +117,8 @@ public abstract class Script_Character
                 Chest = null;
             if (item == Legs)
                 Legs = null;
+
+            //Switch inventory image from equiped to unequiped
             Script_GameManager.GetInstance().UIManager.InventoryPanel.SwitchItemInventoryList(item.UIItem);
         }
     }

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public abstract class Script_EvermorePanel : MonoBehaviour
 {
@@ -25,7 +23,7 @@ public abstract class Script_EvermorePanel : MonoBehaviour
         if (_active)
         {
             --Script_GameManager.GetInstance().UIManager.ActivePanels;
-            if (Script_GameManager.GetInstance().UIManager.ActivePanels == 0)
+            if (Script_GameManager.GetInstance().UIManager.ActivePanels == 0 && !Script_GameManager.GetInstance().GameOver)
                 Time.timeScale = 1f;
         }
         gameObject.SetActive(false);

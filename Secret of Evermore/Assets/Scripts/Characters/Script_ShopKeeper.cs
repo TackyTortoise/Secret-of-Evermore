@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 
 public class Script_ShopKeeper : MonoBehaviour
 {
@@ -24,6 +22,7 @@ public class Script_ShopKeeper : MonoBehaviour
     void Start()
     {
         ShopEntries = new List<ShopEntry>();
+        //Create stock
         ShopEntries.Add(new ShopEntry(new Script_Axe(), 50));
         ShopEntries.Add(new ShopEntry(new Script_Spear(), 70));
         ShopEntries.Add(new ShopEntry(new Script_Armor("Bronze Chest", Script_Armor.ArmorType.Chest, 4), 40));
@@ -40,6 +39,7 @@ public class Script_ShopKeeper : MonoBehaviour
 
     private void Update()
     {
+        //If player is close and presses e, open shop panel
         if (_playerInRange && Input.GetKeyDown(KeyCode.E))
         {
             Script_GameManager.GetInstance().UIManager.ShopPanel.SetShopKeeper(this);
@@ -52,6 +52,7 @@ public class Script_ShopKeeper : MonoBehaviour
         if (other.tag == "Player")
             _playerInRange = true;
 
+        //Show E above head
         transform.GetChild(0).gameObject.SetActive(true);
     }
 
@@ -60,6 +61,7 @@ public class Script_ShopKeeper : MonoBehaviour
         if (other.tag == "Player")
             _playerInRange = false;
 
+        //Hide E above head
         transform.GetChild(0).gameObject.SetActive(false);
     }
 

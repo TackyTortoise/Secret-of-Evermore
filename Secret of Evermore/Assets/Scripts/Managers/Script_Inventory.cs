@@ -1,12 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using UnityEditorInternal;
-using UnityEngine;
 
 public class Script_Inventory
 {
-    private List<Script_Item> _itemList;// = new List<Script_Item>();
+    private List<Script_Item> _itemList;
     public int Currency;
 
     public Script_Inventory()

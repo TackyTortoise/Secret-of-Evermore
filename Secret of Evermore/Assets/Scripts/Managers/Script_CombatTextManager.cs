@@ -27,6 +27,7 @@ public class Script_CombatTextManager
     {
         foreach (var o in _textPool)
         {
+            //Return first inactive object in pool
             if (!o.activeSelf)
             {
                 o.SetActive(true);
@@ -36,9 +37,12 @@ public class Script_CombatTextManager
             }
         }
 
+        //If no objects available, create new one and add to pool
         var obj = GameObject.Instantiate(_textPrefab);
         _textPool.Add(obj);
         obj.transform.SetParent(_poolHolder.transform);
+
+        //Deactivate text after a time
         var coroutine = DeactivateAfterTime(.5f, obj);
         Script_GameManager.GetInstance().StartCoroutine(coroutine);
         return obj;

@@ -1,9 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Script_Finish : MonoBehaviour
 {
+    //Object that finishes game when object is in trigger
+
     public void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")

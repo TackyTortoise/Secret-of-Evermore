@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Security.Policy;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Script_EnemyCharacter : Script_Character
 {

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Script_GameManager : MonoBehaviour
@@ -12,6 +9,8 @@ public class Script_GameManager : MonoBehaviour
     public Script_UIManager UIManager { get; private set; }
     public Script_Inventory Inventory { get; private set; }
     public Script_CombatTextManager CombatTextManager { get; private set; }
+
+    public bool GameOver = false;
 
     // Use this for initialization
     void Awake()
@@ -92,11 +91,13 @@ public class Script_GameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        GameOver = false;
     }
 
     public void CompleteGame(bool win)
     {
         UIManager.ShowGameComplete(win);
         Time.timeScale = 0f;
+        GameOver = true;
     }
 }
